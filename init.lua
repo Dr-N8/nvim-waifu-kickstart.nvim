@@ -145,6 +145,11 @@ vim.opt.splitbelow = true
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
+-- adjusting the tab spacing manually so we dont have to look the disgusting huge spacing that is teh default
+vim.opt.tabstop = 8
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
@@ -227,8 +232,24 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  'xiyaowong/transparent.nvim', -- Allows for transparent background toggle
-  'maxmx03/fluoromachine.nvim', -- Installs my favorite code theme of all time Retrowave 1984
+  -- Allows for transparent background toggle, im not sure if i really need this one or not
+  -- Installs my favorite code theme of all time Retrowave 1984 at least a copy of it it looks nice enough for me
+  {
+    'maxmx03/fluoromachine.nvim',
+    --and configure it
+    config = function()
+      local fm = require 'fluoromachine'
+
+      --i might just try and remove the other plugin now because transparent seems to be part of the colour theme.
+      fm.setup {
+        glow = true,
+        theme = 'delta',
+        transparent = true,
+      }
+
+      vim.cmd.colorscheme 'fluoromachine'
+    end,
+  },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -566,43 +587,56 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-      local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
-        --
+      local servers =
+        {
+          -- clangd = {},
+          -- gopls = {},
+          -- pyright = {},
+          -- rust_analyzer = {},
+          -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
+          --
+          -- Some languages (like typescript) have entire language plugins that can be useful:
+          --    https://github.com/pmizio/typescript-tools.nvim
+          --
+          -- But for many setups, the LSP (`tsserver`) will work just fine
+          -- tsserver = {},
+          --
 
-        lua_ls = {
-          -- cmd = {...},
-          -- filetypes = { ...},
-          -- capabilities = {},
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
+          lua_ls = {
+            -- cmd = {...},
+            -- filetypes = { ...},
+            -- capabilities = {},
+            settings = {
+              Lua = {
+                completion = {
+                  callSnippet = 'Replace',
+                },
+                -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+                -- diagnostics = { disable = { 'missing-fields' } },
               },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
+            },
+          },
+          -- okay confirmation from actually just reading that we need to register php here im just not registering it correctly
+          phpactor = {
+            root_dir = function(_)
+              return vim.loop.cwd()
+            end,
+            init_option = {
+              ['language_server.diagnostics_on_update'] = false,
+              ['language_server.diagnostics_on_open'] = false,
+              ['language_server.diagnostics_on_save'] = false,
+              ['language_server_phpstan.enabled'] = false,
+              ['language_server_psalm.enabled'] = false,
             },
           },
         },
-      }
-
-      -- Ensure the servers and tools above are installed
-      --  To check the current status of installed tools and/or manually install
-      --  other tools, you can run
-      --    :Mason
-      --
-      --  You can press `g?` for help in this menu.
-      require('mason').setup()
+        -- Ensure the servers and tools above are installed
+        --  To check the current status of installed tools and/or manually install
+        --  other tools, you can run
+        --    :Mason
+        --
+        --  You can press `g?` for help in this menu.
+        require('mason').setup()
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
@@ -788,7 +822,8 @@ require('lazy').setup({
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       -- vim.cmd.colorscheme 'tokyonight-night'
-      vim.cmd.colorscheme 'fluoromachine'
+      -- vim.cmd.colorscheme 'fluoromachine'
+
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
