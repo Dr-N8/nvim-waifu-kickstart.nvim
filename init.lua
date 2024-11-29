@@ -631,6 +631,9 @@ require('lazy').setup({
                 enabled = true,
                 class_maps_only = true,
               },
+              ['phpunit'] = {
+                enabled = true,
+              },
             },
           },
         },
