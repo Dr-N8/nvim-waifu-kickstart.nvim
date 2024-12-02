@@ -256,10 +256,10 @@ require('lazy').setup({
   'shufo/blade-formatter',
 
   -- Formatter for the PHP Language
-  'PHP-CS-Fixer/PHP-CS-Fixer',
+  -- 'PHP-CS-Fixer/PHP-CS-Fixer',
 
   -- Formatter for Javascript
-  'fsouza/prettierd',
+  -- 'fsouza/prettierd',
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -647,6 +647,7 @@ require('lazy').setup({
               },
             },
           },
+          -- tsserver = {},
         },
         -- Ensure the servers and tools above are installed
         --  To check the current status of installed tools and/or manually install
@@ -661,6 +662,8 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        -- {'laravel/pint', ''}, -- Used to format PHP Code
+        -- 'fsouza/prettierd', -- Used to format Javascript and Typescript
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -729,7 +732,7 @@ require('lazy').setup({
       -- add in another configuration option for passing in formatter options per formatter im using above
       formatters = {
         php = {
-          command = 'php-cs-fixer',
+          command = '/Users/pickup/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
           args = {
             'fix',
             '$FILENAME',
