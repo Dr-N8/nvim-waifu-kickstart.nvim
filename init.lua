@@ -52,7 +52,6 @@ Kickstart Guide:
       - <enter key>
 
     (If you already know the Neovim basics, you can skip this step.)
-
   Once you've completed that, you can continue working through **AND READING** the rest
   of the kickstart init.lua.
 
@@ -250,6 +249,17 @@ require('lazy').setup({
       vim.cmd.colorscheme 'fluoromachine'
     end,
   },
+
+  -- INCLUDE FORMATTERS
+  --
+  -- Formatter for Laravel blade formatter
+  'shufo/blade-formatter',
+
+  -- Formatter for the PHP Language
+  'PHP-CS-Fixer/PHP-CS-Fixer',
+
+  -- Formatter for Javascript
+  'fsouza/prettierd',
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -616,6 +626,7 @@ require('lazy').setup({
               },
             },
           },
+          -- PHPactor configuration for php and soon blade configuration
           -- okay confirmation from actually just reading that we need to register php here im just not registering it correctly
           phpactor = {
             root_dir = function(_)
@@ -670,7 +681,9 @@ require('lazy').setup({
 
   { -- Autoformat
     'stevearc/conform.nvim',
-    lazy = false,
+    -- lazy = false,
+    lazy = true,
+    event = { 'BufReadPre', 'BufNewFile' },
     keys = {
       {
         '<leader>f',
@@ -682,7 +695,7 @@ require('lazy').setup({
       },
     },
     opts = {
-      notify_on_error = false,
+      notify_on_error = true,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
@@ -694,13 +707,38 @@ require('lazy').setup({
         }
       end,
       formatters_by_ft = {
-        lua = { 'stylua' },
+        -- Lua related Formatter
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         -- javascript = { { "prettierd", "prettier" } },
+
+        --Now load in the formatters per language here
+        lua = { 'stylua' },
+
+        --PHP Related Formatters
+        -- Laravel Blade Php Templates
+        blade = { 'blade-formatter' },
+        --PHP Formatter
+        php = { 'php-cs-fixer' },
+        --javascript related formatter
+        javascript = { 'prettierd' },
+      },
+      -- add in another configuration option for passing in formatter options per formatter im using above
+      formatters = {
+        php = {
+          command = 'php-cs-fixer',
+          args = {
+            'fix',
+            '$FILENAME',
+            '--config=~/.config/nvim/php/php-cs-fix-configuration.php',
+            -- only turn this on if you have risky things in your configuration "--allow-risky=yes"
+          },
+          --stdin = false,
+          stdin = false,
+        },
       },
     },
   },
@@ -880,8 +918,8 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
-      -- Autoinstall languages that are not installed
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'php', 'javascript' },
+      -- Autoin, 'js'stall languages that are not installed
       auto_install = true,
       highlight = {
         enable = true,
