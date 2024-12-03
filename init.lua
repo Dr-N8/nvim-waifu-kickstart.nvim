@@ -256,10 +256,12 @@ require('lazy').setup({
   'shufo/blade-formatter',
 
   -- Formatter for the PHP Language
-  -- 'PHP-CS-Fixer/PHP-CS-Fixer',
+  'PHP-CS-Fixer/PHP-CS-Fixer',
 
   -- Formatter for Javascript
-  -- 'fsouza/prettierd',
+
+  'fsouza/prettierd',
+  'MunifTanjim/prettier.nvim',
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -647,6 +649,8 @@ require('lazy').setup({
               },
             },
           },
+          jsonls = {},
+          tsserver = {},
           -- tsserver = {},
         },
         -- Ensure the servers and tools above are installed
@@ -684,8 +688,8 @@ require('lazy').setup({
 
   { -- Autoformat
     'stevearc/conform.nvim',
-    -- lazy = false,
-    lazy = true,
+    lazy = false,
+    -- lazy = true,
     event = { 'BufReadPre', 'BufNewFile' },
     keys = {
       {
@@ -725,18 +729,19 @@ require('lazy').setup({
         -- Laravel Blade Php Templates
         blade = { 'blade-formatter' },
         --PHP Formatter
-        php = { 'php-cs-fixer' },
+        php = { 'php' },
         --javascript related formatter
-        javascript = { 'prettierd' },
+        javascript = { { 'prettierd', 'prettier' } },
       },
       -- add in another configuration option for passing in formatter options per formatter im using above
       formatters = {
         php = {
-          command = '/Users/pickup/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
+          -- command = '/Users/pickup/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
+          command = '/home/nate/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
           args = {
             'fix',
             '$FILENAME',
-            '--config=~/.config/nvim/php/php-cs-fix-configuration.php',
+            '--config=/home/nate/.config/nvim/php/php-cs-fix-configuration.php',
             -- only turn this on if you have risky things in your configuration "--allow-risky=yes"
           },
           --stdin = false,
