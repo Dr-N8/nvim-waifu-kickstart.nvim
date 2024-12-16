@@ -146,8 +146,8 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 -- adjusting the tab spacing manually so we dont have to look the disgusting huge spacing that is teh default
 vim.opt.tabstop = 8
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -243,7 +243,7 @@ require('lazy').setup({
       fm.setup {
         glow = true,
         theme = 'delta',
-        transparent = true,
+        transparent = false,
       }
 
       vim.cmd.colorscheme 'fluoromachine'
@@ -257,6 +257,17 @@ require('lazy').setup({
 
   -- Formatter for the PHP Language
   'PHP-CS-Fixer/PHP-CS-Fixer',
+
+  -- new formatter for php
+  -- 'PHPCSStandards/PHP_CodeSniffer',
+  -- {
+  --  'praem90/nvim-phpcsf',
+  --  config = function()
+  --    vim.g.nvim_phpcs_config_phpcs_path = 'phpcs'
+  --    vim.g.nvim_phpcs_config_phpcbf_path = 'phpcbf'
+  --    vim.g.nvim_phpcs_config_phpcs_standard = 'PSR12'
+  --  end,
+  -- },
 
   -- Formatter for Javascript
 
@@ -650,7 +661,7 @@ require('lazy').setup({
             },
           },
           jsonls = {},
-          tsserver = {},
+          -- tsserver = {},
           -- tsserver = {},
         },
         -- Ensure the servers and tools above are installed
@@ -733,18 +744,16 @@ require('lazy').setup({
         --javascript related formatter
         javascript = { { 'prettierd', 'prettier' } },
       },
-      -- add in another configuration option for passing in formatter options per formatter im using above
       formatters = {
         php = {
-          -- command = '/Users/pickup/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
-          command = '/home/nate/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
+          --command = '~/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
+          command = '/Users/pickup/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
           args = {
             'fix',
             '$FILENAME',
-            '--config=/home/nate/.config/nvim/php/php-cs-fix-configuration.php',
-            -- only turn this on if you have risky things in your configuration "--allow-risky=yes"
+            -- '--config=~/.config/nvim/php/php-cs-fix-configuration.php',
+            '--config=/Users/pickup/.config/nvim/php/php-cs-fix-configuration.php',
           },
-          --stdin = false,
           stdin = false,
         },
       },
