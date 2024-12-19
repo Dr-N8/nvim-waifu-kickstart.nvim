@@ -741,6 +741,9 @@ require('lazy').setup({
         blade = { 'blade-formatter' },
         --PHP Formatter
         php = { 'php' },
+        scss = { { 'prettierd', 'prettier' } },
+        css = { { 'prettierd', 'prettier' } },
+        sass = { { 'prettierd', 'prettier' } },
         --javascript related formatter
         javascript = { { 'prettierd', 'prettier' } },
       },
