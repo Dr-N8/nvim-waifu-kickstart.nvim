@@ -759,6 +759,27 @@ require('lazy').setup({
           },
           stdin = false,
         },
+        scss = {
+          command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          args = {
+            '$FILENAME',
+          },
+          stdin = true,
+        },
+        css = {
+          command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          args = {
+            '$FILENAME',
+          },
+          stdin = true,
+        },
+        sass = {
+          command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          args = {
+            '$FILENAME',
+          },
+          stdin = true,
+        },
       },
     },
   },
