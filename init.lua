@@ -208,6 +208,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- add in a little extra snippet of code to allow nvim to parse blade.php files as blade files
+vim.filetype.add {
+  pattern = {
+    ['.*%.blade%.php'] = 'blade',
+  },
+}
+
+vim.treesitter.language.register('blade', 'blade')
+
+--add one more to include blade as a formatter
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -272,7 +283,7 @@ require('lazy').setup({
   -- Formatter for Javascript
 
   'fsouza/prettierd',
-  'MunifTanjim/prettier.nvim',
+  -- 'MunifTanjim/prettier.nvim',
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -661,7 +672,8 @@ require('lazy').setup({
             },
           },
           jsonls = {},
-          -- tsserver = {},
+          tsserver = {},
+
           -- tsserver = {},
         },
         -- Ensure the servers and tools above are installed
@@ -676,9 +688,12 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
+        -- lua formatter
         'stylua', -- Used to format Lua code
-        -- {'laravel/pint', ''}, -- Used to format PHP Code
-        -- 'fsouza/prettierd', -- Used to format Javascript and Typescript
+        -- Used to format Javascript and Typescript Scss and Sass
+        'prettierd',
+        -- Formatter for laravel blade templates
+        'blade-formatter',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -741,42 +756,65 @@ require('lazy').setup({
         blade = { 'blade-formatter' },
         --PHP Formatter
         php = { 'php' },
-        scss = { { 'prettierd', 'prettier' } },
-        css = { { 'prettierd', 'prettier' } },
-        sass = { { 'prettierd', 'prettier' } },
+        scss = { 'prettierd' },
+        css = { 'prettierd' },
+        sass = { 'prettierd' },
         --javascript related formatter
-        javascript = { { 'prettierd', 'prettier' } },
+        javascript = { 'prettierd' },
       },
       formatters = {
         php = {
-          --command = '~/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
-          command = '/Users/pickup/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
+          command = '/home/nate/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
+          --command = '/Users/pickup/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
           args = {
             'fix',
             '$FILENAME',
-            -- '--config=~/.config/nvim/php/php-cs-fix-configuration.php',
-            '--config=/Users/pickup/.config/nvim/php/php-cs-fix-configuration.php',
+            '--config=/home/nate/.config/nvim/php/php-cs-fix-configuration.php',
+            -- '--config=/Users/pickup/.config/nvim/php/php-cs-fix-configuration.php',
           },
           stdin = false,
         },
-        scss = {
-          command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
+        javascript = {
+          --command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          command = '/home/nate/.local/share/nvim/lazy/prettierd/bin/prettierd',
           args = {
             '$FILENAME',
+          },
+          env = {
+            PRETTIERD_DEFAULT_CONFIG = '/home/nate/.config/nvim/prettierd-config/config.json',
+          },
+          stdin = true,
+        },
+        scss = {
+          --command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          command = '/home/nate/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          args = {
+            '$FILENAME',
+          },
+          env = {
+            PRETTIERD_DEFAULT_CONFIG = '/home/nate/.config/nvim/prettierd-config/config.json',
           },
           stdin = true,
         },
         css = {
-          command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          --command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          command = '/home/nate/.local/share/nvim/lazy/prettierd/bin/prettierd',
           args = {
             '$FILENAME',
+          },
+          env = {
+            PRETTIERD_DEFAULT_CONFIG = '/home/nate/.config/nvim/prettierd-config/config.json',
           },
           stdin = true,
         },
         sass = {
-          command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          -- command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          command = '/home/nate/.local/share/nvim/lazy/prettierd/bin/prettierd',
           args = {
             '$FILENAME',
+          },
+          env = {
+            PRETTIERD_DEFAULT_CONFIG = '/home/nate/.config/nvim/prettierd-config/config.json',
           },
           stdin = true,
         },
@@ -973,11 +1011,23 @@ require('lazy').setup({
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+      --
 
       -- Prefer git instead of curl in order to improve connectivity in some environments
       require('nvim-treesitter.install').prefer_git = true
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup(opts)
+
+      -- add in the blade formatter
+      local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+      parser_config.blade = {
+        install_info = {
+          url = 'https://github.com/EmranMR/tree-sitter-blade',
+          files = { 'src/parser.c' },
+          branch = 'main',
+        },
+        filetype = 'blade',
+      }
 
       -- There are additional nvim-treesitter modules that you can use to interact
       -- with nvim-treesitter. You should go explore a few and see what interests you:
