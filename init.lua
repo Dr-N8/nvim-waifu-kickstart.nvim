@@ -267,18 +267,19 @@ require('lazy').setup({
   'shufo/blade-formatter',
 
   -- Formatter for the PHP Language
-  'PHP-CS-Fixer/PHP-CS-Fixer',
+  --'PHP-CS-Fixer/PHP-CS-Fixer',
 
   -- new formatter for php
-  -- 'PHPCSStandards/PHP_CodeSniffer',
-  -- {
+  'PHPCSStandards/PHP_CodeSniffer',
+  --{
   --  'praem90/nvim-phpcsf',
-  --  config = function()
-  --    vim.g.nvim_phpcs_config_phpcs_path = 'phpcs'
-  --    vim.g.nvim_phpcs_config_phpcbf_path = 'phpcbf'
-  --    vim.g.nvim_phpcs_config_phpcs_standard = 'PSR12'
-  --  end,
-  -- },
+  -- config = function()
+  --   vim.g.nvim_phpcs_config_phpcs_path = '/Users/pickup/.local/share/nvim/lazy/PHP_CodeSniffer/bin/phpcs'
+  --  vim.g.nvim_phpcs_config_phpcbf_path = '/Users/pickup/.local/share/nvim/lazy/PHP_CodeSniffer/bin/phpcbf'
+  --vim.g.nvim_phpcs_config_phpcs_standard = 'Wordpress'
+  --end,
+  --
+  --},
 
   -- Formatter for Javascript
 
@@ -672,7 +673,10 @@ require('lazy').setup({
             },
           },
           jsonls = {},
-          tsserver = {},
+          somesass_ls = {},
+          cssmodules_ls = {},
+          denols = {},
+          emmet_ls = {},
 
           -- tsserver = {},
         },
@@ -764,19 +768,20 @@ require('lazy').setup({
       },
       formatters = {
         php = {
-          command = '/home/nate/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
-          --command = '/Users/pickup/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
+          -- command = '/home/nate/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
+          command = '/Users/pickup/.local/share/nvim/lazy/PHP-CS-Fixer/php-cs-fixer',
+          -- command = '/Users/pickup/.local/share/nvim/lazy/PHP_CodeSniffer/bin/phpcbf',
           args = {
             'fix',
             '$FILENAME',
-            '--config=/home/nate/.config/nvim/php/php-cs-fix-configuration.php',
-            -- '--config=/Users/pickup/.config/nvim/php/php-cs-fix-configuration.php',
+            -- '--config=/home/nate/.config/nvim/php/php-cs-fix-configuration.php',
+            '--config=/Users/pickup/.config/nvim/php/php-cs-fix-configuration.php',
           },
           stdin = false,
         },
         javascript = {
-          --command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
-          command = '/home/nate/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          -- command = '/home/nate/.local/share/nvim/lazy/prettierd/bin/prettierd',
           args = {
             '$FILENAME',
           },
@@ -786,8 +791,8 @@ require('lazy').setup({
           stdin = true,
         },
         scss = {
-          --command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
-          command = '/home/nate/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          -- command = '/home/nate/.local/share/nvim/lazy/prettierd/bin/prettierd',
           args = {
             '$FILENAME',
           },
@@ -797,8 +802,8 @@ require('lazy').setup({
           stdin = true,
         },
         css = {
-          --command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
-          command = '/home/nate/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          --command = '/home/nate/.local/share/nvim/lazy/prettierd/bin/prettierd',
           args = {
             '$FILENAME',
           },
@@ -808,8 +813,8 @@ require('lazy').setup({
           stdin = true,
         },
         sass = {
-          -- command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
-          command = '/home/nate/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          command = '/Users/pickup/.local/share/nvim/lazy/prettierd/bin/prettierd',
+          -- command = '/home/nate/.local/share/nvim/lazy/prettierd/bin/prettierd',
           args = {
             '$FILENAME',
           },

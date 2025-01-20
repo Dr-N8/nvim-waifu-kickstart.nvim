@@ -1,0 +1,16 @@
+{
+    "name": "pickup/php",
+    "autoload": {
+        "psr-4": {
+            "Pickup\\Php\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "nate"
+        }
+    ],
+    "require": {
+        "vena/php-cs-fixer-wordpress": "^1.0"
+    }
+}
