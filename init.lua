@@ -257,6 +257,7 @@ require('lazy').setup({
         transparent = true,
       }
 
+      -- and finally actualkly set the colour scheme
       vim.cmd.colorscheme 'fluoromachine'
     end,
   },
@@ -267,24 +268,9 @@ require('lazy').setup({
   'shufo/blade-formatter',
 
   -- Formatter for the PHP Language
-  --'PHP-CS-Fixer/PHP-CS-Fixer',
-
-  -- new formatter for php
-  'PHPCSStandards/PHP_CodeSniffer',
-  --{
-  --  'praem90/nvim-phpcsf',
-  -- config = function()
-  --   vim.g.nvim_phpcs_config_phpcs_path = '/Users/pickup/.local/share/nvim/lazy/PHP_CodeSniffer/bin/phpcs'
-  --  vim.g.nvim_phpcs_config_phpcbf_path = '/Users/pickup/.local/share/nvim/lazy/PHP_CodeSniffer/bin/phpcbf'
-  --vim.g.nvim_phpcs_config_phpcs_standard = 'Wordpress'
-  --end,
-  --
-  --},
-
   -- Formatter for Javascript
 
-  'fsouza/prettierd',
-  -- 'MunifTanjim/prettier.nvim',
+  'MunifTanjim/prettier.nvim',
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following

@@ -11,6 +11,7 @@
         }
     ],
     "require": {
-        "vena/php-cs-fixer-wordpress": "^1.0"
+        "vena/php-cs-fixer-wordpress": "^1.0",
+        "tareq1988/wp-php-cs-fixer": "^1.0"
     }
 }

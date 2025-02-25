@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'vena\\WordPress\\PhpCsFixer\\' => array($vendorDir . '/vena/php-cs-fixer-wordpress/src'),
+    'WeDevs\\Fixer\\' => array($vendorDir . '/tareq1988/wp-php-cs-fixer/src'),
     'Symfony\\Polyfill\\Php81\\' => array($vendorDir . '/symfony/polyfill-php81'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),

@@ -23,6 +23,10 @@ class ComposerStaticInita0c78edceb6394d8bda4bd77e2f27514
         array (
             'vena\\WordPress\\PhpCsFixer\\' => 26,
         ),
+        'W' => 
+        array (
+            'WeDevs\\Fixer\\' => 13,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php81\\' => 23,
@@ -81,6 +85,10 @@ class ComposerStaticInita0c78edceb6394d8bda4bd77e2f27514
         'vena\\WordPress\\PhpCsFixer\\' => 
         array (
             0 => __DIR__ . '/..' . '/vena/php-cs-fixer-wordpress/src',
+        ),
+        'WeDevs\\Fixer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tareq1988/wp-php-cs-fixer/src',
         ),
         'Symfony\\Polyfill\\Php81\\' => 
         array (
