@@ -1,4 +1,5 @@
 {
   "trailingComma": "es5",
-  "tabWidth": 8
+  "tabWidth": 4,
+  "plugins": ["/Users/pickup/.config/nvim/prettier-global/node_modules/plugin-php/src/index.mjs"]
 }

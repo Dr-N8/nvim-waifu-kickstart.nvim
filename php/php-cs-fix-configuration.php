@@ -17,6 +17,7 @@ return (new PhpCsFixer\Config())
     new WeDevs\Fixer\SpaceInsideParenthesisFixer(),
     new WeDevs\Fixer\BlankLineAfterClassOpeningFixer()
   ])
+  ->setRiskyAllowed(true)
   ->setRules(WeDevs\Fixer\Fixer::rules())
   /*
   ->setRules([

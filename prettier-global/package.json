@@ -1,0 +1,15 @@
+{
+  "name": "prettier-global",
+  "version": "1.0.0",
+  "description": "i know its not the way they think i will use this but they should die",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prettier/plugin-php": "^0.22.4",
+    "prettier": "^3.5.3"
+  }
+}
