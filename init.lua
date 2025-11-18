@@ -161,6 +161,12 @@ vim.opt.scrolloff = 10
 -- See `:help 'confirm'`
 vim.opt.confirm = true
 
+-- [[ Nate setting override ]]
+
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -795,6 +801,7 @@ require('lazy').setup({
         javascript = { 'prettierd' },
         scss = { 'prettierd' },
         css = { 'prettierd' },
+        html = { 'prettierd' },
         php = { 'prettierd' },
       },
       formatters = {
@@ -812,6 +819,20 @@ require('lazy').setup({
             string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand '~/.config/nvim/prettierd-config/config.json'),
           },
         },
+
+        -- HTML
+        html = {
+          command = string.format('%s/prettierd', vim.fn.expand '~/.local/share/nvim/lazy/prettierd/bin'),
+          stdin = true,
+          args = {
+            '$FILENAME',
+            string.format('--plugin "%s"', vim.fn.expand '~/.local/share/nvim/lazy/plugin-php/src/index.mjs'),
+          },
+          env = {
+            string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand '~/.config/nvim/prettierd-config/config.json'),
+          },
+        },
+
         -- PHP
         php = {
           command = string.format('%s/prettierd', vim.fn.expand '~/.local/share/nvim/lazy/prettierd/bin'),
